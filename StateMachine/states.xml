@@ -1,0 +1,12 @@
+<states>
+	<state name="welcome">
+	</state>
+	<state name="select_language">
+	</state>
+	<state name="english_message">
+	</state>
+	<state name="hindi_message">
+	</state>
+	<state name="hangup">
+	</state>
+</states>
