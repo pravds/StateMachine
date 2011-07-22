@@ -3,6 +3,7 @@ package example;
 
 import data.Data;
 import statemachine.ActionState;
+import statemachine.Event;
 
 public class StateSelectLanguage extends ActionState<IvrContext>{
     public StateSelectLanguage(String name, boolean startState) {
@@ -10,16 +11,16 @@ public class StateSelectLanguage extends ActionState<IvrContext>{
     }
 
     @Override
-    protected void action(IvrContext ivrContext) {
-        ivrContext.setIvrResponse(new IvrResponse("Please select your language preference"));
+    protected Event nextEvent(IvrContext ivrContext) {
+        IVRRequest request = ivrContext.getIvrRequest();
+        if(request.getUserInput().equals("english")) return IvrEvents.PLAY_ENGLISH_MESSAGE;
+        else if(request.getUserInput().equals("hindi")) return IvrEvents.PLAY_HINDI_MESSAGE;
+        return IvrEvents.UNKNOWN;
     }
 
     @Override
-    protected String nextTransition(IvrContext ivrContext) {
-        IVRRequest request = ivrContext.getIvrRequest();
-        if(request.getUserInput().equals("english")) return "english";
-        else if(request.getUserInput().equals("hindi")) return "hindi";
-        return "unknown";
+    protected void action(IvrContext ivrContext) {
+        ivrContext.setIvrResponse(new IvrResponse("Please select your language preference"));
     }
 
     @Override

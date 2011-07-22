@@ -4,6 +4,9 @@ import java.util.Map;
 
 public abstract class State<Context> {
 
+    public static IdleState IDLE_STATE = new IdleState();
+    public static EndState END_STATE = new EndState();
+
     private String name;
 
     private boolean startState;
@@ -22,4 +25,6 @@ public abstract class State<Context> {
     public boolean isStartState() {
         return startState;
     }
+
+
 }

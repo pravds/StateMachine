@@ -1,6 +1,7 @@
 package example;
 
 import statemachine.ActionState;
+import statemachine.Event;
 
 
 public class StatePlayHindiMessage extends ActionState<IvrContext>{
@@ -14,11 +15,11 @@ public class StatePlayHindiMessage extends ActionState<IvrContext>{
     }
 
     @Override
-    protected String nextTransition(IvrContext ivrContext) {
-        return "finish";
+    protected void exitAction(IvrContext ivrContext) {
     }
 
     @Override
-    protected void exitAction(IvrContext ivrContext) {
+    protected Event nextEvent(IvrContext ivrContext) {
+        return IvrEvents.FINISH;
     }
 }

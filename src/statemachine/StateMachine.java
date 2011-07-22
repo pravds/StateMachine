@@ -8,7 +8,9 @@ public class StateMachine<Context> {
 
     private Context context;
 
-   List<State> states;
+    List<State> states;
+    private ActionState startState;
+    private Transitions transitions;
 
     public void setContext(Context context) {
         this.context = context;
@@ -18,12 +20,12 @@ public class StateMachine<Context> {
         return context;
     }
 
-    public StateMachine(List<State> states) {
-        this.states =states;
+    public StateMachine(ActionState startSate, Transitions transitions) {
+        this.startState = startSate;
+        this.transitions = transitions;
     }
 
     private void start() {
-        ActionState startState = getStartState();
         startState.action(context);
         currentState = startState;
     }
@@ -34,27 +36,19 @@ public class StateMachine<Context> {
     }
 
     private void next(){
-        ActionState newState = nextActionState(currentState);
-        if(newState instanceof IdleState)return;
-        newState.action(context);
-        currentState = newState;
+        ActionState nextActionState = nextActionState(currentState);
+        if(nextActionState instanceof IdleState)return;
+        currentState.exitAction(context);
+        currentState = nextActionState;
+        currentState.action(context);
     }
 
     private ActionState nextActionState(ActionState state) {
-        State newState = state.nextState(context);
+        State newState = transitions.nextState(state, state.nextEvent(context));
         while (newState instanceof DecisionState){
-            newState = ((DecisionState)newState).nextState(context);
+            newState = transitions.nextState(newState, ((DecisionState) newState).nextEvent(context));
         }
         return (ActionState) newState;
-    }
-
-    private ActionState getStartState()  {
-        for(int index=0;index< states.size();index++){
-             if(states.get(index).isStartState()){
-                return (ActionState) states.get(index);
-            }
-        }
-        throw new RuntimeException("Could not find valid start state");
     }
 
 }

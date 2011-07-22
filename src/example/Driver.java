@@ -3,84 +3,78 @@ package example;
 
 import statemachine.State;
 import statemachine.StateMachine;
+import statemachine.Transition;
+import statemachine.Transitions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Driver {
 
      public static void main(String[] args){
-         final List<State> stateMap = new ArrayList<State>();
 
-         // States
-         StateWelcome welcome = new StateWelcome("welcome", true);
-         StateCheckUserType userType = new StateCheckUserType("userType", false);
-         StateSelectLanguage selectLanguage = new StateSelectLanguage("selectLanguage", false);
-         StatePlayEnglishMessage englishMessage = new StatePlayEnglishMessage("englishMessage", false);
-         StatePlayHindiMessage hindiMessage = new StatePlayHindiMessage("hindiMessage", false);
-
-         //transitions
-         HashMap<String, State > transitionMap = new HashMap<String, State>();
-
-         transitionMap.put("checkUserState",userType);
-         welcome.setTransitionMap(transitionMap);
-
-         transitionMap = new HashMap<String, State>();
-         transitionMap.put("selectLanguage",selectLanguage);
-         transitionMap.put("english",englishMessage);
-         transitionMap.put("hindi",hindiMessage);
-         userType.setTransitionMap(transitionMap);
-
-         transitionMap = new HashMap<String, State>();
-         transitionMap.put("english",englishMessage);
-         transitionMap.put("hindi",hindiMessage);
-         selectLanguage.setTransitionMap(transitionMap);
-
-
-         //state machine initialize
-         stateMap.add(welcome);
-         stateMap.add(userType);
-         stateMap.add(selectLanguage);
-         stateMap.add(englishMessage);
-         stateMap.add(hindiMessage);
-         StateMachine<IvrContext> stateMachine = new StateMachine<IvrContext>(stateMap);
-
-
+         StateMachine<IvrContext> stateMachineOne = GetIvrStateMachine();
          // steps
          IvrContext context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","call"));
-         stateMachine.setContext(context);
-         stateMachine.move();
-         System.out.println(stateMachine.getContext().getIvrResponse().getMessage());
+         stateMachineOne.setContext(context);
+         stateMachineOne.move();
+         System.out.println(stateMachineOne.getContext().getIvrResponse().getMessage());
 
          context = new IvrContext();
-         context.setIvrRequest(new IVRRequest("9880202527",""));
-         stateMachine.setContext(context);
-         stateMachine.move();
-         System.out.println(stateMachine.getContext().getIvrResponse().getMessage());
+         context.setIvrRequest(new IVRRequest("9880202527", ""));
+         stateMachineOne.setContext(context);
+         stateMachineOne.move();
+         System.out.println(stateMachineOne.getContext().getIvrResponse().getMessage());
 
          context = new IvrContext();
-         context.setIvrRequest(new IVRRequest("9880202527","english"));
-         stateMachine.setContext(context);
-         stateMachine.move();
-         System.out.println(stateMachine.getContext().getIvrResponse().getMessage());
+         context.setIvrRequest(new IVRRequest("9880202527", "english"));
+         stateMachineOne.setContext(context);
+         stateMachineOne.move();
+         System.out.println(stateMachineOne.getContext().getIvrResponse().getMessage());
 
-         StateMachine<IvrContext> newstateMachine = new StateMachine<IvrContext>(stateMap);
+        StateMachine<IvrContext> stateMachineTwo = GetIvrStateMachine();
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","call"));
-         newstateMachine.setContext(context);
-         newstateMachine.move();
-         System.out.println(newstateMachine.getContext().getIvrResponse().getMessage());
+         stateMachineTwo.setContext(context);
+         stateMachineTwo.move();
+         System.out.println(stateMachineTwo.getContext().getIvrResponse().getMessage());
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527",""));
-         newstateMachine.setContext(context);
-         newstateMachine.move();
-         System.out.println(newstateMachine.getContext().getIvrResponse().getMessage());
+         stateMachineTwo.setContext(context);
+         stateMachineTwo.move();
+         System.out.println(stateMachineTwo.getContext().getIvrResponse().getMessage());
 
      }
+
+    private static StateMachine<IvrContext> GetIvrStateMachine() {
+        // States
+        StateWelcome welcome = new StateWelcome("welcome", true);
+        StateCheckUserType checkUserType = new StateCheckUserType("userType", false);
+        StateSelectLanguage selectLanguage = new StateSelectLanguage("selectLanguage", false);
+        StatePlayEnglishMessage englishMessage = new StatePlayEnglishMessage("englishMessage", false);
+        StatePlayHindiMessage hindiMessage = new StatePlayHindiMessage("hindiMessage", false);
+
+        //transitions
+        List<Transition> transitions = new ArrayList<Transition>();
+        transitions.add(new Transition(welcome, IvrEvents.CHECK_USER_TYPE,checkUserType));
+
+        transitions.add(new Transition(checkUserType, IvrEvents.SELECT_LANGUAGE,selectLanguage));
+        transitions.add(new Transition(checkUserType, IvrEvents.PLAY_ENGLISH_MESSAGE,englishMessage));
+        transitions.add(new Transition(checkUserType, IvrEvents.PLAY_HINDI_MESSAGE,hindiMessage));
+
+        transitions.add(new Transition(selectLanguage, IvrEvents.PLAY_ENGLISH_MESSAGE,englishMessage));
+        transitions.add(new Transition(selectLanguage, IvrEvents.PLAY_HINDI_MESSAGE,hindiMessage));
+
+        transitions.add(new Transition(englishMessage, IvrEvents.FINISH, State.END_STATE));
+
+        transitions.add(new Transition(hindiMessage, IvrEvents.FINISH,State.END_STATE));
+
+
+        return new StateMachine<IvrContext>(welcome, new Transitions(transitions));
+    }
 
 
 }

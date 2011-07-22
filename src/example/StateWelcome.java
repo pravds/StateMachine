@@ -1,6 +1,7 @@
 package example;
 
 import statemachine.ActionState;
+import statemachine.Event;
 
 public class StateWelcome extends ActionState<IvrContext>{
 
@@ -9,13 +10,13 @@ public class StateWelcome extends ActionState<IvrContext>{
     }
 
     @Override
-    protected void action(IvrContext ivrContext) {
-        ivrContext.setIvrResponse(new IvrResponse("welcome message"));
+    protected Event nextEvent(IvrContext ivrContext) {
+        return IvrEvents.CHECK_USER_TYPE;
     }
 
     @Override
-    protected String nextTransition(IvrContext ivrContext) {
-        return "checkUserState";
+    protected void action(IvrContext ivrContext) {
+        ivrContext.setIvrResponse(new IvrResponse("welcome message"));
     }
 
     @Override
