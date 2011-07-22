@@ -17,7 +17,9 @@ public class StateSelectLanguage extends ActionState<IvrContext>{
     @Override
     protected String nextTransition(IvrContext ivrContext) {
         IVRRequest request = ivrContext.getIvrRequest();
-        return Data.userToLanguageMap.get(request.getNumber());
+        if(request.getUserInput().equals("english")) return "english";
+        else if(request.getUserInput().equals("hindi")) return "hindi";
+        return "unknown";
     }
 
     @Override

@@ -8,14 +8,14 @@ public abstract class State<Context> {
 
     boolean startState;
 
-    Map<String,String> transitionMap;
+    Map<String,State> transitionMap;
 
     protected State(String name, boolean startState) {
         this.name = name;
         this.startState = startState;
     }
 
-    public void setTransitionMap(Map<String, String> transitionMap) {
+    public void setTransitionMap(Map<String, State> transitionMap) {
         this.transitionMap = transitionMap;
     }
 

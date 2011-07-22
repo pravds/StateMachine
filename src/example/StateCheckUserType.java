@@ -19,7 +19,7 @@ public class StateCheckUserType extends DecisionState<IvrContext>{
     }
 
     private boolean newUser(IvrContext context) {
-        IVRRequest request = (IVRRequest) context.getIvrRequest();
+        IVRRequest request = context.getIvrRequest();
         return !Data.userToLanguageMap.containsKey(request.getNumber());
     }
 }

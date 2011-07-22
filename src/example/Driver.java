@@ -4,42 +4,50 @@ package example;
 import statemachine.State;
 import statemachine.StateMachine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Driver {
 
      public static void main(String[] args){
-         final HashMap<String, State> stateMap = new HashMap<String, State>();
+         final List<State> stateMap = new ArrayList<State>();
 
+         // States
          StateWelcome welcome = new StateWelcome("welcome", true);
          StateCheckUserType userType = new StateCheckUserType("userType", false);
          StateSelectLanguage selectLanguage = new StateSelectLanguage("selectLanguage", false);
          StatePlayEnglishMessage englishMessage = new StatePlayEnglishMessage("englishMessage", false);
          StatePlayHindiMessage hindiMessage = new StatePlayHindiMessage("hindiMessage", false);
 
-         HashMap<String, String> transitionMap = new HashMap<String, String>();
-         transitionMap.put("checkUserState",userType.getName());
+         //transitions
+         HashMap<String, State > transitionMap = new HashMap<String, State>();
+
+         transitionMap.put("checkUserState",userType);
          welcome.setTransitionMap(transitionMap);
 
-         transitionMap = new HashMap<String, String>();
-         transitionMap.put("selectLanguage",selectLanguage.getName());
-         transitionMap.put("english",englishMessage.getName());
-         transitionMap.put("hindi",hindiMessage.getName());
+         transitionMap = new HashMap<String, State>();
+         transitionMap.put("selectLanguage",selectLanguage);
+         transitionMap.put("english",englishMessage);
+         transitionMap.put("hindi",hindiMessage);
          userType.setTransitionMap(transitionMap);
 
-         transitionMap = new HashMap<String, String>();
-         transitionMap.put("english",englishMessage.getName());
-         transitionMap.put("hindi",hindiMessage.getName());
+         transitionMap = new HashMap<String, State>();
+         transitionMap.put("english",englishMessage);
+         transitionMap.put("hindi",hindiMessage);
          selectLanguage.setTransitionMap(transitionMap);
 
-         stateMap.put(welcome.getName(),welcome);
-         stateMap.put(userType.getName(),userType);
-         stateMap.put(selectLanguage.getName(),selectLanguage);
-         stateMap.put(englishMessage.getName(),englishMessage);
-         stateMap.put(hindiMessage.getName(),hindiMessage);
 
+         //state machine initialize
+         stateMap.add(welcome);
+         stateMap.add(userType);
+         stateMap.add(selectLanguage);
+         stateMap.add(englishMessage);
+         stateMap.add(hindiMessage);
          StateMachine<IvrContext> stateMachine = new StateMachine<IvrContext>(stateMap);
 
+
+         // steps
          IvrContext context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","call"));
          stateMachine.setContext(context);
@@ -71,7 +79,6 @@ public class Driver {
          newstateMachine.setContext(context);
          newstateMachine.move();
          System.out.println(newstateMachine.getContext().getIvrResponse().getMessage());
-
 
      }
 

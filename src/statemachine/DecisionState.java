@@ -9,7 +9,7 @@ public abstract class DecisionState<Context> extends State{
 
     protected abstract String action(Context context);
 
-    String nextState(Context context){
-        return (String) transitionMap.get(action(context));
+    State nextState(Context context){
+        return (State) transitionMap.get(action(context));
     }
 }

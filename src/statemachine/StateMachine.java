@@ -1,7 +1,6 @@
 package statemachine;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
 public class StateMachine<Context> {
 
@@ -9,7 +8,7 @@ public class StateMachine<Context> {
 
     private Context context;
 
-    Map<String,State> stateMap;
+   List<State> states;
 
     public void setContext(Context context) {
         this.context = context;
@@ -19,9 +18,8 @@ public class StateMachine<Context> {
         return context;
     }
 
-    public StateMachine(Map<String,State> stateMap) {
-        this.stateMap =stateMap;
-        this.stateMap.put(IdleState.NAME,new IdleState());
+    public StateMachine(List<State> states) {
+        this.states =states;
     }
 
     private void start() {
@@ -43,24 +41,18 @@ public class StateMachine<Context> {
     }
 
     private ActionState nextActionState(ActionState state) {
-        String name = state.nextState(context);
-        State newState = stateMap.get(name);
+        State newState = state.nextState(context);
         while (newState instanceof DecisionState){
-            String stateName = ((DecisionState)newState).nextState(context);
-            newState = stateMap.get(stateName);
+            newState = ((DecisionState)newState).nextState(context);
         }
         return (ActionState) newState;
     }
 
     private ActionState getStartState()  {
-        Iterator<String> iterator = stateMap.keySet().iterator();
-        while (iterator.hasNext()){
-            String key = iterator.next();
-            State state = stateMap.get(key);
-            if(state.isStartState()){
-                return (ActionState) state;
+        for(int index=0;index< states.size();index++){
+             if(states.get(index).isStartState()){
+                return (ActionState) states.get(index);
             }
-
         }
         throw new RuntimeException("Could not find valid start state");
     }

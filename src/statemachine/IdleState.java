@@ -2,9 +2,11 @@ package statemachine;
 
 public class IdleState extends ActionState{
 
-    public static final String NAME = "idle";
+    private static final String NAME = "idle";
 
-    public IdleState() {
+    public static IdleState instance = new IdleState();
+
+    private IdleState() {
         super(NAME, false);
     }
 
