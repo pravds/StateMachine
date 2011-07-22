@@ -5,8 +5,8 @@ import statemachine.Event;
 
 
 public class StatePlayHindiMessage extends ActionState<IvrContext>{
-    public StatePlayHindiMessage(String name, boolean startState) {
-        super(name, startState);
+    public StatePlayHindiMessage(String name) {
+        super(name);
     }
 
     @Override

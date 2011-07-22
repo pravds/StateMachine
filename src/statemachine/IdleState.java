@@ -2,12 +2,8 @@ package statemachine;
 
 public class IdleState extends ActionState{
 
-    private static final String NAME = "idle";
-
-
-
     IdleState() {
-        super(NAME, false);
+        super("idle");
     }
 
     @Override

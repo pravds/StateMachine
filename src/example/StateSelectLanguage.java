@@ -6,8 +6,8 @@ import statemachine.ActionState;
 import statemachine.Event;
 
 public class StateSelectLanguage extends ActionState<IvrContext>{
-    public StateSelectLanguage(String name, boolean startState) {
-        super(name, startState);
+    public StateSelectLanguage(String name) {
+        super(name);
     }
 
     @Override

@@ -7,7 +7,7 @@ import statemachine.ActionState;
 public class WelcomeMessage extends ActionState<MotekContext>{
     public static String USER_TYPE_SWITCH = "USER_TYPE_SWITCH";
     protected WelcomeMessage(String name) {
-        super(name, true);
+        super(name);
     }
 
     @Override

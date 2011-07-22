@@ -5,8 +5,8 @@ import statemachine.Event;
 
 public class StateWelcome extends ActionState<IvrContext>{
 
-    public StateWelcome(String name, boolean startState) {
-        super(name, startState);
+    public StateWelcome(String name) {
+        super(name);
     }
 
     @Override

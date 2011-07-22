@@ -3,7 +3,7 @@ package statemachine;
 public class EndState extends ActionState{
 
     EndState() {
-        super("endState", false);
+        super("endState");
     }
 
     @Override

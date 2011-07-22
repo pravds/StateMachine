@@ -8,8 +8,8 @@ import statemachine.Event;
 public class StateCheckUserType extends DecisionState<IvrContext>{
 
 
-    public StateCheckUserType(String name, boolean startState) {
-        super(name, startState);
+    public StateCheckUserType(String name) {
+        super(name);
     }
 
     @Override

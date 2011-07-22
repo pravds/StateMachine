@@ -3,8 +3,8 @@ package statemachine;
 
 public abstract class ActionState<Context> extends State{
 
-    protected ActionState(String name, boolean startState) {
-        super(name, startState);
+    protected ActionState(String name) {
+        super(name);
     }
 
     protected abstract void action(Context context);

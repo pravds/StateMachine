@@ -11,7 +11,7 @@ public class UserTypeCheck extends DecisionState<MotekContext>{
     public static final String RESUME_COURSE = "RESUME_COURSE";
 
     protected UserTypeCheck(String name) {
-        super(name, false);
+        super(name);
     }
 
     @Override
