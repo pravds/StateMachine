@@ -17,35 +17,30 @@ public class Driver {
          // steps
          IvrContext context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","call"));
-         stateMachineOne.setContext(context);
-         stateMachineOne.move();
-         System.out.println(stateMachineOne.getContext().getIvrResponse().getMessage());
+         stateMachineOne.move(context);
+         System.out.println(context.getIvrResponse().getMessage());
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527", ""));
-         stateMachineOne.setContext(context);
-         stateMachineOne.move();
-         System.out.println(stateMachineOne.getContext().getIvrResponse().getMessage());
+         stateMachineOne.move(context);
+         System.out.println(context.getIvrResponse().getMessage());
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527", "english"));
-         stateMachineOne.setContext(context);
-         stateMachineOne.move();
-         System.out.println(stateMachineOne.getContext().getIvrResponse().getMessage());
+         stateMachineOne.move(context);
+         System.out.println(context.getIvrResponse().getMessage());
 
         StateMachine<IvrContext> stateMachineTwo = GetIvrStateMachine();
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","call"));
-         stateMachineTwo.setContext(context);
-         stateMachineTwo.move();
-         System.out.println(stateMachineTwo.getContext().getIvrResponse().getMessage());
+         stateMachineTwo.move(context);
+         System.out.println(context.getIvrResponse().getMessage());
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527",""));
-         stateMachineTwo.setContext(context);
-         stateMachineTwo.move();
-         System.out.println(stateMachineTwo.getContext().getIvrResponse().getMessage());
+         stateMachineTwo.move(context);
+         System.out.println(context.getIvrResponse().getMessage());
 
      }
 
