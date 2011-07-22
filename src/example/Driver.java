@@ -51,11 +51,11 @@ public class Driver {
 
     private static StateMachine<IvrContext> GetIvrStateMachine() {
         // States
-        StateWelcome welcome = new StateWelcome("welcome");
-        StateCheckUserType checkUserType = new StateCheckUserType("userType");
-        StateSelectLanguage selectLanguage = new StateSelectLanguage("selectLanguage");
-        StatePlayEnglishMessage englishMessage = new StatePlayEnglishMessage("englishMessage");
-        StatePlayHindiMessage hindiMessage = new StatePlayHindiMessage("hindiMessage");
+        StateWelcome welcome = new StateWelcome();
+        StateCheckUserType checkUserType = new StateCheckUserType();
+        StateSelectLanguage selectLanguage = new StateSelectLanguage();
+        StatePlayEnglishMessage englishMessage = new StatePlayEnglishMessage();
+        StatePlayHindiMessage hindiMessage = new StatePlayHindiMessage();
 
         //transitions
         List<Transition> transitions = new ArrayList<Transition>();

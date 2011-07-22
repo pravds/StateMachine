@@ -46,7 +46,7 @@ public class StateMachine<Context> {
     private ActionState nextActionState(ActionState state) {
         State newState = transitions.nextState(state, state.nextEvent(context));
         while (newState instanceof DecisionState){
-            newState = transitions.nextState(newState, ((DecisionState) newState).nextEvent(context));
+            newState = transitions.nextState(newState, newState.nextEvent(context));
         }
         return (ActionState) newState;
     }

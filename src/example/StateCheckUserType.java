@@ -4,15 +4,9 @@ import statemachine.DecisionState;
 import statemachine.Event;
 
 
-public class StateCheckUserType extends DecisionState<IvrContext>{
+public class StateCheckUserType implements DecisionState<IvrContext>{
 
-
-    public StateCheckUserType(String name) {
-        super(name);
-    }
-
-    @Override
-    protected Event nextEvent(IvrContext ivrContext) {
+    public Event nextEvent(IvrContext ivrContext) {
         IVRRequest request = ivrContext.getIvrRequest();
         if(newUser(ivrContext)) return IvrEvents.SELECT_LANGUAGE;
         if(Data.userToLanguageMap.get(request.getNumber()).equals("english")) return IvrEvents.PLAY_ENGLISH_MESSAGE;

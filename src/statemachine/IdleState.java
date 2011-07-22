@@ -1,21 +1,18 @@
 package statemachine;
 
-public class IdleState extends ActionState{
+public class IdleState implements ActionState{
 
     IdleState() {
-        super("idle");
+        super();
     }
 
-    @Override
-    protected void action(Object o) {
+    public void action(Object o) {
     }
 
-    @Override
-    protected void exitAction(Object o) {
+    public void exitAction(Object o) {
     }
 
-    @Override
-    protected Event nextEvent(Object o) {
+    public Event nextEvent(Object o) {
         throw new RuntimeException("Unsupported operation") ;
     }
 }
