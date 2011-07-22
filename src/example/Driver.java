@@ -43,19 +43,19 @@ public class Driver {
          IvrContext context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","call"));
          stateMachine.setContext(context);
-         stateMachine.start();
+         stateMachine.move();
          System.out.println(stateMachine.getContext().getIvrResponse().getMessage());
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527",""));
          stateMachine.setContext(context);
-         stateMachine.next();
+         stateMachine.move();
          System.out.println(stateMachine.getContext().getIvrResponse().getMessage());
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","english"));
          stateMachine.setContext(context);
-         stateMachine.next();
+         stateMachine.move();
          System.out.println(stateMachine.getContext().getIvrResponse().getMessage());
 
          StateMachine<IvrContext> newstateMachine = new StateMachine<IvrContext>(stateMap);
@@ -63,13 +63,13 @@ public class Driver {
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527","call"));
          newstateMachine.setContext(context);
-         newstateMachine.start();
+         newstateMachine.move();
          System.out.println(newstateMachine.getContext().getIvrResponse().getMessage());
 
          context = new IvrContext();
          context.setIvrRequest(new IVRRequest("9880202527",""));
          newstateMachine.setContext(context);
-         newstateMachine.next();
+         newstateMachine.move();
          System.out.println(newstateMachine.getContext().getIvrResponse().getMessage());
 
 

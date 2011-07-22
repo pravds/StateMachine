@@ -19,23 +19,25 @@ public class StateMachine<Context> {
         return context;
     }
 
-    public StateMachine(String path) {
-        BuildStateMap(path);
-        start();
-    }
-
     public StateMachine(Map<String,State> stateMap) {
         this.stateMap =stateMap;
+        this.stateMap.put(IdleState.NAME,new IdleState());
     }
 
-    public void start() {
+    private void start() {
         ActionState startState = getStartState();
         startState.action(context);
         currentState = startState;
     }
 
-    public void next(){
+    public void move(){
+        if(currentState == null) start();
+        else next();
+    }
+
+    private void next(){
         ActionState newState = nextActionState(currentState);
+        if(newState instanceof IdleState)return;
         newState.action(context);
         currentState = newState;
     }
@@ -50,7 +52,7 @@ public class StateMachine<Context> {
         return (ActionState) newState;
     }
 
-    private ActionState getStartState() {
+    private ActionState getStartState()  {
         Iterator<String> iterator = stateMap.keySet().iterator();
         while (iterator.hasNext()){
             String key = iterator.next();
@@ -60,10 +62,7 @@ public class StateMachine<Context> {
             }
 
         }
-        return null;  //To change body of created methods use File | Settings | File Templates.
+        throw new RuntimeException("Could not find valid start state");
     }
 
-    private void BuildStateMap(String path) {
-        //To change body of created methods use File | Settings | File Templates.
-    }
 }

@@ -20,6 +20,5 @@ public class StateWelcome extends ActionState<IvrContext>{
 
     @Override
     protected void exitAction(IvrContext ivrContext) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

@@ -14,7 +14,11 @@ public abstract class ActionState<Context> extends State{
     protected abstract void exitAction(Context context);
 
     String nextState(Context context){
-        exitAction(context);
-        return (String) transitionMap.get(nextTransition(context));
+        String key = nextTransition(context);
+        if(transitionMap.containsKey(key)){
+            exitAction(context);
+            return (String) transitionMap.get(key);
+        }
+        else return IdleState.NAME;
     }
 }
