@@ -15,7 +15,7 @@ public class UserTypeCheck extends DecisionState<MotekContext>{
     }
 
     @Override
-    protected String action(MotekContext context) {
+    protected String nextTransition(MotekContext context) {
         String number = context.getRequest().getNumber();
         if(existingUsers.contains(number)) return RESUME_COURSE;
         return null;  //To change body of implemented methods use File | Settings | File Templates.

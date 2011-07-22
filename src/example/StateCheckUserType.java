@@ -12,7 +12,7 @@ public class StateCheckUserType extends DecisionState<IvrContext>{
     }
 
     @Override
-    protected String action(IvrContext ivrContext) {
+    protected String nextTransition(IvrContext ivrContext) {
         if(newUser(ivrContext)) return "selectLanguage";
         IVRRequest request = ivrContext.getIvrRequest();
         return Data.userToLanguageMap.get(request.getNumber());
