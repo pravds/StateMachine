@@ -1,7 +1,6 @@
 package example;
 
 
-import data.Data;
 import statemachine.ActionState;
 import statemachine.Event;
 

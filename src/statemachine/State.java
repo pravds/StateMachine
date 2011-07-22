@@ -10,4 +10,6 @@ public abstract class State<Context> {
     protected State(String name) {
         this.name = name;
     }
+
+     protected abstract Event nextEvent(Context context);
 }

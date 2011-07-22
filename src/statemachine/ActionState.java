@@ -1,7 +1,7 @@
 package statemachine;
 
 
-public abstract class ActionState<Context> extends State{
+public abstract class ActionState<Context> extends State<Context>{
 
     protected ActionState(String name) {
         super(name);
@@ -11,5 +11,5 @@ public abstract class ActionState<Context> extends State{
 
     protected abstract void exitAction(Context context);
 
-    protected abstract Event nextEvent(Context context);
+
 }
