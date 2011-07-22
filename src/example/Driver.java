@@ -15,32 +15,29 @@ public class Driver {
 
          StateMachine<IvrContext> stateMachineOne = GetIvrStateMachine();
          // steps
-         IvrContext context = new IvrContext();
-         context.setIvrRequest(new IVRRequest("9880202527","call"));
-         stateMachineOne.move(context);
-         System.out.println(context.getIvrResponse().getMessage());
+         IvrContext contextOne = new IvrContext();
+         contextOne.setIvrRequest(new IVRRequest("9880202527", "call"));
+         stateMachineOne.move(contextOne);
+         System.out.println(contextOne.getIvrResponse().getMessage());
 
-         context = new IvrContext();
-         context.setIvrRequest(new IVRRequest("9880202527", ""));
-         stateMachineOne.move(context);
-         System.out.println(context.getIvrResponse().getMessage());
+         contextOne.setIvrRequest(new IVRRequest("9880202527", ""));
+         stateMachineOne.move(contextOne);
+         System.out.println(contextOne.getIvrResponse().getMessage());
 
-         context = new IvrContext();
-         context.setIvrRequest(new IVRRequest("9880202527", "english"));
-         stateMachineOne.move(context);
-         System.out.println(context.getIvrResponse().getMessage());
+         contextOne.setIvrRequest(new IVRRequest("9880202527", "english"));
+         stateMachineOne.move(contextOne);
+         System.out.println(contextOne.getIvrResponse().getMessage());
 
-        StateMachine<IvrContext> stateMachineTwo = GetIvrStateMachine();
+         StateMachine<IvrContext> stateMachineTwo = GetIvrStateMachine();
 
-         context = new IvrContext();
-         context.setIvrRequest(new IVRRequest("9880202527","call"));
-         stateMachineTwo.move(context);
-         System.out.println(context.getIvrResponse().getMessage());
+         IvrContext contextTwo = new IvrContext();
+         contextTwo.setIvrRequest(new IVRRequest("9880202527","call"));
+         stateMachineTwo.move(contextOne);
+         System.out.println(contextOne.getIvrResponse().getMessage());
 
-         context = new IvrContext();
-         context.setIvrRequest(new IVRRequest("9880202527",""));
-         stateMachineTwo.move(context);
-         System.out.println(context.getIvrResponse().getMessage());
+         contextTwo.setIvrRequest(new IVRRequest("9880202527", ""));
+         stateMachineTwo.move(contextOne);
+         System.out.println(contextOne.getIvrResponse().getMessage());
 
      }
 
